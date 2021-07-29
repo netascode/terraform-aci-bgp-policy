@@ -1,9 +1,27 @@
-resource "aci_rest" "fvTenant" {
-  dn         = "uni/tn-${var.name}"
-  class_name = "fvTenant"
+resource "aci_rest" "bgpAsP" {
+  dn         = "uni/fabric/bgpInstP-default/as"
+  class_name = "bgpAsP"
   content = {
-    name      = var.name
-    nameAlias = var.alias
-    descr     = var.description
+    asn = var.fabric_bgp_as
+  }
+}
+
+resource "aci_rest" "bgpRRNodePEp" {
+  for_each   = { for rr in var.fabric_bgp_rr : rr.node_id => rr }
+  dn         = "uni/fabric/bgpInstP-default/rr/node-${each.value.node_id}"
+  class_name = "bgpRRNodePEp"
+  content = {
+    id    = each.value.node_id
+    podId = each.value.pod
+  }
+}
+
+resource "aci_rest" "bgpRRNodePEp-Ext" {
+  for_each   = { for rr in var.fabric_bgp_external_rr : rr.node_id => rr }
+  dn         = "uni/fabric/bgpInstP-default/extrr/node-${each.value.node_id}"
+  class_name = "bgpRRNodePEp"
+  content = {
+    id    = each.value.node_id
+    podId = each.value.pod
   }
 }

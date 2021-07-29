@@ -1,31 +1,55 @@
-variable "name" {
-  description = "Tenant name"
-  type        = string
+variable "fabric_bgp_as" {
+  description = "Fabric BGP AS"
+  type        = number
 
   validation {
-    condition     = can(regex("^[a-zA-Z0-9_.-]{0,64}$", var.name))
-    error_message = "Allowed characters: `a`-`z`, `A`-`Z`, `0`-`9`, `_`, `.`, `-`. Maximum characters: 64."
+    condition     = var.fabric_bgp_as >= 1 || var.fabric_bgp_as <= 4294967295
+    error_message = "Minimum value: 1, Maximum value: 4294967295."
   }
 }
 
-variable "alias" {
-  description = "Tenant alias"
-  type        = string
-  default     = ""
+variable "fabric_bgp_rr" {
+  description = "Fabric BGP route reflector nodes"
+  type = list(object({
+    node_id = number
+    pod     = number
+  }))
+  default = []
 
   validation {
-    condition     = can(regex("^[a-zA-Z0-9_.-]{0,64}$", var.alias))
-    error_message = "Allowed characters: `a`-`z`, `A`-`Z`, `0`-`9`, `_`, `.`, `-`. Maximum characters: 64."
+    condition = alltrue([
+      for rr in var.fabric_bgp_rr : (rr.node_id >= 1 || rr.node_id <= 4000)
+    ])
+    error_message = "Minimum value: 1, Maximum value: 4000."
+  }
+
+  validation {
+    condition = alltrue([
+      for rr in var.fabric_bgp_rr : (rr.pod >= 1 || rr.pod <= 255)
+    ])
+    error_message = "Minimum value: 1, Maximum value: 255."
   }
 }
 
-variable "description" {
-  description = "Tenant description"
-  type        = string
-  default     = ""
+variable "fabric_bgp_external_rr" {
+  description = "Fabric BGP external route reflector nodes"
+  type = list(object({
+    node_id = number
+    pod     = number
+  }))
+  default = []
 
   validation {
-    condition     = can(regex("^[a-zA-Z0-9\\!#$%()*,-./:;@ _{|}~?&+]{0,128}$", var.description))
-    error_message = "Allowed characters: `a`-`z`, `A`-`Z`, `0`-`9`, `\\`, `!`, `#`, `$`, `%`, `(`, `)`, `*`, `,`, `-`, `.`, `/`, `:`, `;`, `@`, ` `, `_`, `{`, `|`, }`, `~`, `?`, `&`, `+`. Maximum characters: 128."
+    condition = alltrue([
+      for rr in var.fabric_bgp_external_rr : (rr.node_id >= 1 || rr.node_id <= 4000)
+    ])
+    error_message = "Minimum value: 1, Maximum value: 4000."
+  }
+
+  validation {
+    condition = alltrue([
+      for rr in var.fabric_bgp_external_rr : (rr.pod >= 1 || rr.pod <= 255)
+    ])
+    error_message = "Minimum value: 1, Maximum value: 255."
   }
 }

@@ -14,35 +14,74 @@ terraform {
 module "main" {
   source = "../.."
 
-  name        = "ABC"
-  alias       = "ALIAS"
-  description = "DESCR"
+  fabric_bgp_as = 65000
+  fabric_bgp_rr = [{
+    node_id = 1001
+    pod     = 1
+  }]
+
+  fabric_bgp_external_rr = [{
+    node_id = 1001
+    pod     = 1
+  }]
 }
 
-data "aci_rest" "fvTenant" {
-  dn = "uni/tn-ABC"
+data "aci_rest" "bgpAsP" {
+  dn = "uni/fabric/bgpInstP-default/as"
 
   depends_on = [module.main]
 }
 
-resource "test_assertions" "fvTenant" {
-  component = "fvTenant"
+resource "test_assertions" "bgpAsP" {
+  component = "bgpAsP"
 
-  equal "name" {
-    description = "name"
-    got         = data.aci_rest.fvTenant.content.name
-    want        = "ABC"
+  equal "asn" {
+    description = "asn"
+    got         = data.aci_rest.bgpAsP.content.asn
+    want        = "65000"
+  }
+}
+
+data "aci_rest" "bgpRRNodePEp" {
+  dn = "uni/fabric/bgpInstP-default/rr/node-1001"
+
+  depends_on = [module.main]
+}
+
+resource "test_assertions" "bgpRRNodePEp" {
+  component = "bgpRRNodePEp"
+
+  equal "id" {
+    description = "id"
+    got         = data.aci_rest.bgpRRNodePEp.content.id
+    want        = "1001"
   }
 
-  equal "nameAlias" {
-    description = "nameAlias"
-    got         = data.aci_rest.fvTenant.content.nameAlias
-    want        = "ALIAS"
+  equal "podId" {
+    description = "podId"
+    got         = data.aci_rest.bgpRRNodePEp.content.podId
+    want        = "1"
+  }
+}
+
+data "aci_rest" "bgpRRNodePEp-Ext" {
+  dn = "uni/fabric/bgpInstP-default/extrr/node-1001"
+
+  depends_on = [module.main]
+}
+
+resource "test_assertions" "bgpRRNodePEp-Ext" {
+  component = "bgpRRNodePEp-Ext"
+
+  equal "id" {
+    description = "id"
+    got         = data.aci_rest.bgpRRNodePEp.content.id
+    want        = "1001"
   }
 
-  equal "descr" {
-    description = "descr"
-    got         = data.aci_rest.fvTenant.content.descr
-    want        = "DESCR"
+  equal "podId" {
+    description = "podId"
+    got         = data.aci_rest.bgpRRNodePEp.content.podId
+    want        = "1"
   }
 }
