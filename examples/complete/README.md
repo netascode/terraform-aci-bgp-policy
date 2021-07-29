@@ -20,7 +20,6 @@ module "aci_bgp_policy" {
     node_id = 1001
     pod     = 1
   }]
-
   fabric_bgp_external_rr = [{
     node_id = 1001
     pod     = 1
