@@ -1,5 +1,5 @@
 variable "fabric_bgp_as" {
-  description = "Fabric BGP AS"
+  description = "Fabric BGP AS, Minimum value: 1, Maximum value: 4294967295."
   type        = number
 
   validation {
@@ -9,7 +9,7 @@ variable "fabric_bgp_as" {
 }
 
 variable "fabric_bgp_rr" {
-  description = "Fabric BGP route reflector nodes"
+  description = "Fabric BGP route reflector nodes, Allowed values `node_id`: 1-4000, Allowed values `pod`: 1-255."
   type = list(object({
     node_id = number
     pod     = number
@@ -32,7 +32,7 @@ variable "fabric_bgp_rr" {
 }
 
 variable "fabric_bgp_external_rr" {
-  description = "Fabric BGP external route reflector nodes"
+  description = "Fabric BGP external route reflector nodes, Allowed values `node_id`: 1-4000, Allowed values `pod`: 1-255."
   type = list(object({
     node_id = number
     pod     = number

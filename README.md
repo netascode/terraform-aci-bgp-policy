@@ -44,9 +44,9 @@ module "aci_bgp_policy" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_fabric_bgp_as"></a> [fabric\_bgp\_as](#input\_fabric\_bgp\_as) | Fabric BGP AS | `number` | n/a | yes |
-| <a name="input_fabric_bgp_rr"></a> [fabric\_bgp\_rr](#input\_fabric\_bgp\_rr) | Fabric BGP route reflector nodes | <pre>list(object({<br>    node_id = number<br>    pod     = number<br>  }))</pre> | `[]` | no |
-| <a name="input_fabric_bgp_external_rr"></a> [fabric\_bgp\_external\_rr](#input\_fabric\_bgp\_external\_rr) | Fabric BGP external route reflector nodes | <pre>list(object({<br>    node_id = number<br>    pod     = number<br>  }))</pre> | `[]` | no |
+| <a name="input_fabric_bgp_as"></a> [fabric\_bgp\_as](#input\_fabric\_bgp\_as) | Fabric BGP AS, Minimum value: 1, Maximum value: 4294967295. | `number` | n/a | yes |
+| <a name="input_fabric_bgp_rr"></a> [fabric\_bgp\_rr](#input\_fabric\_bgp\_rr) | Fabric BGP route reflector nodes, Allowed values `node_id`: 1-4000, Allowed values `pod`: 1-255. | <pre>list(object({<br>    node_id = number<br>    pod     = number<br>  }))</pre> | `[]` | no |
+| <a name="input_fabric_bgp_external_rr"></a> [fabric\_bgp\_external\_rr](#input\_fabric\_bgp\_external\_rr) | Fabric BGP external route reflector nodes, Allowed values `node_id`: 1-4000, Allowed values `pod`: 1-255. | <pre>list(object({<br>    node_id = number<br>    pod     = number<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 
