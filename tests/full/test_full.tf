@@ -16,13 +16,12 @@ module "main" {
 
   fabric_bgp_as = 65000
   fabric_bgp_rr = [{
-    node_id = 1001
-    pod     = 1
+    node_id = 2001
+    pod_id  = 2
   }]
-
   fabric_bgp_external_rr = [{
-    node_id = 1001
-    pod     = 1
+    node_id = 2001
+    pod_id  = 2
   }]
 }
 
@@ -43,7 +42,7 @@ resource "test_assertions" "bgpAsP" {
 }
 
 data "aci_rest" "bgpRRNodePEp" {
-  dn = "uni/fabric/bgpInstP-default/rr/node-1001"
+  dn = "uni/fabric/bgpInstP-default/rr/node-2001"
 
   depends_on = [module.main]
 }
@@ -54,18 +53,18 @@ resource "test_assertions" "bgpRRNodePEp" {
   equal "id" {
     description = "id"
     got         = data.aci_rest.bgpRRNodePEp.content.id
-    want        = "1001"
+    want        = "2001"
   }
 
   equal "podId" {
     description = "podId"
     got         = data.aci_rest.bgpRRNodePEp.content.podId
-    want        = "1"
+    want        = "2"
   }
 }
 
 data "aci_rest" "bgpRRNodePEp-Ext" {
-  dn = "uni/fabric/bgpInstP-default/extrr/node-1001"
+  dn = "uni/fabric/bgpInstP-default/extrr/node-2001"
 
   depends_on = [module.main]
 }
@@ -76,12 +75,12 @@ resource "test_assertions" "bgpRRNodePEp-Ext" {
   equal "id" {
     description = "id"
     got         = data.aci_rest.bgpRRNodePEp.content.id
-    want        = "1001"
+    want        = "2001"
   }
 
   equal "podId" {
     description = "podId"
     got         = data.aci_rest.bgpRRNodePEp.content.podId
-    want        = "1"
+    want        = "2"
   }
 }

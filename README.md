@@ -12,16 +12,17 @@ Location in GUI:
 
 ```hcl
 module "aci_bgp_policy" {
-  source = "netascode/bgp-policy/aci"
+  source  = "netascode/bgp-policy/aci"
+  version = ">= 0.0.2"
 
   fabric_bgp_as = 65000
   fabric_bgp_rr = [{
-    node_id = 1001
-    pod     = 1
+    node_id = 2001
+    pod_id  = 2
   }]
   fabric_bgp_external_rr = [{
-    node_id = 1001
-    pod     = 1
+    node_id = 2001
+    pod_id  = 2
   }]
 }
 
@@ -45,8 +46,8 @@ module "aci_bgp_policy" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_fabric_bgp_as"></a> [fabric\_bgp\_as](#input\_fabric\_bgp\_as) | Fabric BGP AS. Minimum value: 1. Maximum value: 4294967295. | `number` | n/a | yes |
-| <a name="input_fabric_bgp_rr"></a> [fabric\_bgp\_rr](#input\_fabric\_bgp\_rr) | List of fabric BGP route reflector nodes. Allowed values `node_id`: 1-4000. Allowed values `pod`: 1-255. | <pre>list(object({<br>    node_id = number<br>    pod     = number<br>  }))</pre> | `[]` | no |
-| <a name="input_fabric_bgp_external_rr"></a> [fabric\_bgp\_external\_rr](#input\_fabric\_bgp\_external\_rr) | List of fabric BGP external route reflector nodes. Allowed values `node_id`: 1-4000. Allowed values `pod`: 1-255. | <pre>list(object({<br>    node_id = number<br>    pod     = number<br>  }))</pre> | `[]` | no |
+| <a name="input_fabric_bgp_rr"></a> [fabric\_bgp\_rr](#input\_fabric\_bgp\_rr) | List of fabric BGP route reflector nodes. Allowed values `node_id`: 1-4000. Allowed values `pod_id`: 1-255. Default value `pod_id`: 1. | <pre>list(object({<br>    node_id = number<br>    pod_id  = optional(number)<br>  }))</pre> | `[]` | no |
+| <a name="input_fabric_bgp_external_rr"></a> [fabric\_bgp\_external\_rr](#input\_fabric\_bgp\_external\_rr) | List of fabric BGP external route reflector nodes. Allowed values `node_id`: 1-4000. Allowed values `pod_id`: 1-255. Default value `pod_id`: 1. | <pre>list(object({<br>    node_id = number<br>    pod_id  = optional(number)<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 

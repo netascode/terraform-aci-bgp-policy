@@ -12,7 +12,7 @@ resource "aci_rest" "bgpRRNodePEp" {
   class_name = "bgpRRNodePEp"
   content = {
     id    = each.value.node_id
-    podId = each.value.pod
+    podId = each.value.pod_id != null ? each.value.pod_id : 1
   }
 }
 
@@ -22,6 +22,6 @@ resource "aci_rest" "bgpRRNodePEp-Ext" {
   class_name = "bgpRRNodePEp"
   content = {
     id    = each.value.node_id
-    podId = each.value.pod
+    podId = each.value.pod_id != null ? each.value.pod_id : 1
   }
 }

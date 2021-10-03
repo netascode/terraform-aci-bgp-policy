@@ -9,10 +9,10 @@ variable "fabric_bgp_as" {
 }
 
 variable "fabric_bgp_rr" {
-  description = "List of fabric BGP route reflector nodes. Allowed values `node_id`: 1-4000. Allowed values `pod`: 1-255."
+  description = "List of fabric BGP route reflector nodes. Allowed values `node_id`: 1-4000. Allowed values `pod_id`: 1-255. Default value `pod_id`: 1."
   type = list(object({
     node_id = number
-    pod     = number
+    pod_id  = optional(number)
   }))
   default = []
 
@@ -25,17 +25,17 @@ variable "fabric_bgp_rr" {
 
   validation {
     condition = alltrue([
-      for rr in var.fabric_bgp_rr : (rr.pod >= 1 && rr.pod <= 255)
+      for rr in var.fabric_bgp_rr : (rr.pod_id >= 1 && rr.pod_id <= 255)
     ])
-    error_message = "`pod`: Minimum value: 1. Maximum value: 255."
+    error_message = "`pod_id`: Minimum value: 1. Maximum value: 255."
   }
 }
 
 variable "fabric_bgp_external_rr" {
-  description = "List of fabric BGP external route reflector nodes. Allowed values `node_id`: 1-4000. Allowed values `pod`: 1-255."
+  description = "List of fabric BGP external route reflector nodes. Allowed values `node_id`: 1-4000. Allowed values `pod_id`: 1-255. Default value `pod_id`: 1."
   type = list(object({
     node_id = number
-    pod     = number
+    pod_id  = optional(number)
   }))
   default = []
 
@@ -48,8 +48,8 @@ variable "fabric_bgp_external_rr" {
 
   validation {
     condition = alltrue([
-      for rr in var.fabric_bgp_external_rr : (rr.pod >= 1 && rr.pod <= 255)
+      for rr in var.fabric_bgp_external_rr : (rr.pod_id >= 1 && rr.pod_id <= 255)
     ])
-    error_message = "`pod`: Minimum value: 1. Maximum value: 255."
+    error_message = "`pod_id`: Minimum value: 1. Maximum value: 255."
   }
 }

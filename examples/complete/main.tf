@@ -1,13 +1,14 @@
 module "aci_bgp_policy" {
-  source = "netascode/bgp-policy/aci"
+  source  = "netascode/bgp-policy/aci"
+  version = ">= 0.0.2"
 
   fabric_bgp_as = 65000
   fabric_bgp_rr = [{
-    node_id = 1001
-    pod     = 1
+    node_id = 2001
+    pod_id  = 2
   }]
   fabric_bgp_external_rr = [{
-    node_id = 1001
-    pod     = 1
+    node_id = 2001
+    pod_id  = 2
   }]
 }
