@@ -1,4 +1,4 @@
-resource "aci_rest" "bgpAsP" {
+resource "aci_rest_managed" "bgpAsP" {
   dn         = "uni/fabric/bgpInstP-default/as"
   class_name = "bgpAsP"
   content = {
@@ -6,7 +6,7 @@ resource "aci_rest" "bgpAsP" {
   }
 }
 
-resource "aci_rest" "bgpRRNodePEp" {
+resource "aci_rest_managed" "bgpRRNodePEp" {
   for_each   = { for rr in var.fabric_bgp_rr : rr.node_id => rr }
   dn         = "uni/fabric/bgpInstP-default/rr/node-${each.value.node_id}"
   class_name = "bgpRRNodePEp"
@@ -16,7 +16,7 @@ resource "aci_rest" "bgpRRNodePEp" {
   }
 }
 
-resource "aci_rest" "bgpRRNodePEp-Ext" {
+resource "aci_rest_managed" "bgpRRNodePEp-Ext" {
   for_each   = { for rr in var.fabric_bgp_external_rr : rr.node_id => rr }
   dn         = "uni/fabric/bgpInstP-default/extrr/node-${each.value.node_id}"
   class_name = "bgpRRNodePEp"

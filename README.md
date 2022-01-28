@@ -13,7 +13,7 @@ Location in GUI:
 ```hcl
 module "aci_bgp_policy" {
   source  = "netascode/bgp-policy/aci"
-  version = ">= 0.0.2"
+  version = ">= 0.1.0"
 
   fabric_bgp_as = 65000
   fabric_bgp_rr = [{
@@ -25,7 +25,6 @@ module "aci_bgp_policy" {
     pod_id  = 2
   }]
 }
-
 ```
 
 ## Requirements
@@ -33,13 +32,13 @@ module "aci_bgp_policy" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aci"></a> [aci](#requirement\_aci) | >= 0.2.0 |
+| <a name="requirement_aci"></a> [aci](#requirement\_aci) | >= 2.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aci"></a> [aci](#provider\_aci) | >= 0.2.0 |
+| <a name="provider_aci"></a> [aci](#provider\_aci) | >= 2.0.0 |
 
 ## Inputs
 
@@ -57,7 +56,7 @@ No outputs.
 
 | Name | Type |
 |------|------|
-| [aci_rest.bgpAsP](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
-| [aci_rest.bgpRRNodePEp](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
-| [aci_rest.bgpRRNodePEp-Ext](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest_managed.bgpAsP](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
+| [aci_rest_managed.bgpRRNodePEp](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
+| [aci_rest_managed.bgpRRNodePEp-Ext](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
 <!-- END_TF_DOCS -->

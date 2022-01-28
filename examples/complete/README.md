@@ -14,7 +14,7 @@ Note that this example will create resources. Resources can be destroyed with `t
 ```hcl
 module "aci_bgp_policy" {
   source  = "netascode/bgp-policy/aci"
-  version = ">= 0.0.2"
+  version = ">= 0.1.0"
 
   fabric_bgp_as = 65000
   fabric_bgp_rr = [{
@@ -26,6 +26,5 @@ module "aci_bgp_policy" {
     pod_id  = 2
   }]
 }
-
 ```
 <!-- END_TF_DOCS -->

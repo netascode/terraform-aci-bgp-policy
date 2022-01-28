@@ -5,8 +5,8 @@ terraform {
     }
 
     aci = {
-      source  = "netascode/aci"
-      version = ">=0.2.0"
+      source  = "CiscoDevNet/aci"
+      version = ">=2.0.0"
     }
   }
 }
@@ -25,7 +25,7 @@ module "main" {
   }]
 }
 
-data "aci_rest" "bgpAsP" {
+data "aci_rest_managed" "bgpAsP" {
   dn = "uni/fabric/bgpInstP-default/as"
 
   depends_on = [module.main]
@@ -36,12 +36,12 @@ resource "test_assertions" "bgpAsP" {
 
   equal "asn" {
     description = "asn"
-    got         = data.aci_rest.bgpAsP.content.asn
+    got         = data.aci_rest_managed.bgpAsP.content.asn
     want        = "65000"
   }
 }
 
-data "aci_rest" "bgpRRNodePEp" {
+data "aci_rest_managed" "bgpRRNodePEp" {
   dn = "uni/fabric/bgpInstP-default/rr/node-2001"
 
   depends_on = [module.main]
@@ -52,18 +52,18 @@ resource "test_assertions" "bgpRRNodePEp" {
 
   equal "id" {
     description = "id"
-    got         = data.aci_rest.bgpRRNodePEp.content.id
+    got         = data.aci_rest_managed.bgpRRNodePEp.content.id
     want        = "2001"
   }
 
   equal "podId" {
     description = "podId"
-    got         = data.aci_rest.bgpRRNodePEp.content.podId
+    got         = data.aci_rest_managed.bgpRRNodePEp.content.podId
     want        = "2"
   }
 }
 
-data "aci_rest" "bgpRRNodePEp-Ext" {
+data "aci_rest_managed" "bgpRRNodePEp-Ext" {
   dn = "uni/fabric/bgpInstP-default/extrr/node-2001"
 
   depends_on = [module.main]
@@ -74,13 +74,13 @@ resource "test_assertions" "bgpRRNodePEp-Ext" {
 
   equal "id" {
     description = "id"
-    got         = data.aci_rest.bgpRRNodePEp.content.id
+    got         = data.aci_rest_managed.bgpRRNodePEp.content.id
     want        = "2001"
   }
 
   equal "podId" {
     description = "podId"
-    got         = data.aci_rest.bgpRRNodePEp.content.podId
+    got         = data.aci_rest_managed.bgpRRNodePEp.content.podId
     want        = "2"
   }
 }
