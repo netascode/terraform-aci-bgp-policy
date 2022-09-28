@@ -12,7 +12,7 @@ variable "fabric_bgp_rr" {
   description = "List of fabric BGP route reflector nodes. Allowed values `node_id`: 1-4000. Allowed values `pod_id`: 1-255. Default value `pod_id`: 1."
   type = list(object({
     node_id = number
-    pod_id  = optional(number)
+    pod_id  = optional(number, 1)
   }))
   default = []
 
@@ -35,7 +35,7 @@ variable "fabric_bgp_external_rr" {
   description = "List of fabric BGP external route reflector nodes. Allowed values `node_id`: 1-4000. Allowed values `pod_id`: 1-255. Default value `pod_id`: 1."
   type = list(object({
     node_id = number
-    pod_id  = optional(number)
+    pod_id  = optional(number, 1)
   }))
   default = []
 

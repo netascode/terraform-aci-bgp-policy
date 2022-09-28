@@ -1,4 +1,6 @@
 terraform {
+  required_version = ">= 1.3.0"
+
   required_providers {
     test = {
       source = "terraform.io/builtin/test"
@@ -74,13 +76,13 @@ resource "test_assertions" "bgpRRNodePEp-Ext" {
 
   equal "id" {
     description = "id"
-    got         = data.aci_rest_managed.bgpRRNodePEp.content.id
+    got         = data.aci_rest_managed.bgpRRNodePEp-Ext.content.id
     want        = "2001"
   }
 
   equal "podId" {
     description = "podId"
-    got         = data.aci_rest_managed.bgpRRNodePEp.content.podId
+    got         = data.aci_rest_managed.bgpRRNodePEp-Ext.content.podId
     want        = "2"
   }
 }
